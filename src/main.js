@@ -25,7 +25,7 @@ function main() {
 
 	{
 
-		const planeSize = 160;
+		const planeSize = 180;
 
 		const loader = new THREE.TextureLoader();
 		const texture = loader.load( 'https://threejs.org/manual/examples/resources/images/checker.png' );
@@ -46,6 +46,12 @@ function main() {
 		scene.add( mesh );
 
 	}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 	{
 
@@ -106,6 +112,11 @@ function main() {
 			scene.add(ambientLight);
 		}
 	}
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 	{
 		const loader = new THREE.CubeTextureLoader();
 		const texture = loader.load([
@@ -120,30 +131,31 @@ function main() {
 	}
 
 
-	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 	{
-        const mtlLoader = new MTLLoader();
-        const objLoader = new OBJLoader();
-        mtlLoader.load('lib/Avent_sport.mtl', (mtl) => {
-        mtl.preload();
-        objLoader.setMaterials(mtl);
-        objLoader.load('lib/Avent_sport.obj', (root) => {//Credit: https://free3d.com/3d-model/lamborghini-aventador-sport-44634.html
-        const scaleFactor = 5.0;
-        root.scale.set(scaleFactor, scaleFactor, scaleFactor);
-	   root.position.x = 45;
-	   root.position.y = 2.31; 
-	   root.position.z = 57; 
-        scene.add(root);
-        });
-        });
-
-
-
-		
+		const mtlLoader = new MTLLoader();
+		const objLoader = new OBJLoader();
+		mtlLoader.load('lib/Avent_sport.mtl', (mtl) => {
+			mtl.preload();
+			objLoader.setMaterials(mtl);
+			objLoader.load('lib/Avent_sport.obj', (root) => {//Credit: https://free3d.com/3d-model/lamborghini-aventador-sport-44634.html
+				const scaleFactor = 5.0;
+				root.scale.set(scaleFactor, scaleFactor, scaleFactor);
+	
+				const carGroup = new THREE.Group();//AI taught me how to use groups
+				carGroup.add(root);
+	
+				carGroup.position.set(45, 2.31, 57);
+	
+				scene.add(carGroup);
+				objects.push(carGroup); 
+			});
+		});
 	}
-
+	
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	{
 		const mtlLoader = new MTLLoader();
@@ -167,7 +179,7 @@ function main() {
 	  }
 
 
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     {
 		const boxWidth = 1;
@@ -206,9 +218,15 @@ function main() {
 			makeInstance(pyramidGeometry, -5, 5, -3, 1, 1, 1, 0, 0, 0, null, 0xaa8844),
 		  ];
 	
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		  
+
+
+
 		const roadWidth = 35;
 		const roadHeight = 0.15;
-		const roadDepth = 160;
+		const roadDepth = 180;
 		const roadGeometry = new THREE.BoxGeometry(roadWidth, roadHeight, roadDepth);
 		const roadColor = 0x444444;
 	
@@ -237,16 +255,22 @@ function main() {
 		const roadLine11 = makeInstance(roadLineGeometry, 0, 0.2, -60, 1, 1, 1, 0, Math.PI / 2, 0, null, roadLineColor);
 		const roadLine12 = makeInstance(roadLineGeometry, -20, 0.2, -60, 1, 1, 1, 0, Math.PI / 2, 0, null, roadLineColor);
 
-		const greenSquareWidth = 160;
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	
+		const greenSquareWidth = 180;
 		const greenSquareHeight = 0.1;
-		const greenSquareDepth = 160;
+		const greenSquareDepth = 180;
 		const greenSquareGeometry = new THREE.BoxGeometry(greenSquareWidth, greenSquareHeight, greenSquareDepth);
 		const greenSquareColor = 0x006600; 
 	
 		const greenSquare = makeInstance(greenSquareGeometry, 0, 0.01, 0, 1, 1, 1, 0, 0, 0, null, greenSquareColor);
 	
 
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 		const trunkRadius = 0.5;
@@ -255,7 +279,7 @@ function main() {
 		const trunkColor = 0x8B4513; 
 	  
 		const leafRadius = 5;
-		const leafGeometry = new THREE.SphereGeometry(leafRadius);
+		const leafGeometry = new THREE.SphereGeometry(leafRadius, 5, 5);
 		const leafColor = 0x228B22; 
 	  
 		const pyramidRadiusT = 3;
@@ -265,29 +289,31 @@ function main() {
 		function createTree1(x, y, z) {
 		  const trunk = makeInstance(trunkGeometry, x, y+trunkHeight/2, z, 1, 1, 1, 0, 0, 0, null, trunkColor);
 		  const pyramid = makeInstance(pyramidGeometryT, x, y + trunkHeight, z, 1, 1, 1, 0, 0, 0, null, leafColor);
+		  objects.push(pyramid);
 		}
 		function createTree(x, y, z) {
 			const trunk1 = makeInstance(trunkGeometry, x, y+trunkHeight/2, z, 1, 1, 1, 0, 0, 0, null, trunkColor);
 			const leaves = makeInstance(leafGeometry, x, y + trunkHeight, z, 1, 1, 1, 0, 0, 0, null, leafColor);
+			objects.push(leaves);
 		  }
 	  
-		createTree1(73, 0.1, 20);
-		createTree(73, 0.1, -20);
-		createTree1(73, 0.1, -32);
-		createTree(73, 0.1, 32);
-		createTree(73, 0.1, 6);
-		createTree1(73, 0.1, -6);
+		createTree1(83, 0.1, 20);
+		createTree(83, 0.1, -20);
+		createTree1(83, 0.1, -32);
+		createTree(83, 0.1, 32);
+		createTree(83, 0.1, 6);
+		createTree1(83, 0.1, -6);
 
-		createTree1(-73, 0.1, 20);
-		createTree(-73, 0.1, -20);
-		createTree1(-73, 0.1, -32);
-		createTree(-73, 0.1, 32);
-		createTree(-73, 0.1, 6);
-		createTree1(-73, 0.1, -6);
+		createTree1(-83, 0.1, 20);
+		createTree(-83, 0.1, -20);
+		createTree1(-83, 0.1, -32);
+		createTree(-83, 0.1, 32);
+		createTree(-83, 0.1, 6);
+		createTree1(-83, 0.1, -6);
 	}
 
 	
-	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 
 	function resizeRendererToDisplaySize( renderer ) {
@@ -306,27 +332,41 @@ function main() {
 
 	}
 
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 	function render(time) {
-
-		if ( resizeRendererToDisplaySize( renderer ) ) {
-
+		if (resizeRendererToDisplaySize(renderer)) {
 			const canvas = renderer.domElement;
 			camera.aspect = canvas.clientWidth / canvas.clientHeight;
 			camera.updateProjectionMatrix();
-
 		}
-        time *= 0.001;
-        objects.forEach((obj, ndx) => {
-        const speed = 1 + ndx * 0.1;
-        const rot = time * speed;
-        obj.rotation.x = rot;
-        obj.rotation.y = rot;
-        });
-
-		renderer.render( scene, camera );
-
-		requestAnimationFrame( render );
-
+	
+		time *= 0.001;
+		objects.forEach((obj, ndx) => {
+			const speed = 1 + ndx * 0.1;
+			const rot = time * speed;
+			if (obj.geometry instanceof THREE.ConeGeometry) {
+				obj.rotation.y = rot;
+			} else if (obj.type === 'Group') { 
+				const radius = 60; 
+				const revolutionSpeed = 0.5; 
+				obj.rotation.y = rot * revolutionSpeed;
+				obj.position.set(
+					Math.cos(rot * revolutionSpeed) * radius,
+					obj.position.y,
+					Math.sin(rot * revolutionSpeed) * radius
+				);
+			} else {
+				obj.rotation.x = rot;
+				obj.rotation.y = rot;
+			}
+		});
+	
+		renderer.render(scene, camera);
+		requestAnimationFrame(render);
 	}
 
 	requestAnimationFrame( render );
