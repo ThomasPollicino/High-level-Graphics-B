@@ -348,9 +348,9 @@ function main() {
 		objects.forEach((obj, ndx) => {
 			const speed = 1 + ndx * 0.1;
 			const rot = time * speed;
-			if (obj.geometry instanceof THREE.ConeGeometry) {
+			if (obj.geometry instanceof THREE.ConeGeometry) {//Tree pyramids
 				obj.rotation.y = rot;
-			} else if (obj.type === 'Group') { 
+			} else if (obj.type === 'Group') { //Car
 				const radius = 60; 
 				const revolutionSpeed = 0.5; 
 				obj.rotation.y = rot * revolutionSpeed;
@@ -359,7 +359,7 @@ function main() {
 					obj.position.y,
 					Math.sin(rot * revolutionSpeed) * radius
 				);
-			} else {
+			} else {//Tree circles and shapes in middle
 				obj.rotation.x = rot;
 				obj.rotation.y = rot;
 			}
